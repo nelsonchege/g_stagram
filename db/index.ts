@@ -1,8 +1,11 @@
-import { drizzle, PostgresJsDatabase } from "drizzle-orm/postgres-js";
-import postgres from "postgres";
-import { migrate } from "drizzle-orm/postgres-js/migrator";
+import { drizzle } from "drizzle-orm/node-postgres";
+import { Client } from "pg";
+import * as dotenv from "dotenv";
+dotenv.config();
 
-const client = postgres();
-export const db: PostgresJsDatabase = drizzle(client);
+const client = new Client({
+  connectionString: process.env.DATABASE_URL!,
+});
 
-migrate(db, { migrationsFolder: "drizzle" });
+await client.connect();
+export const db = drizzle(client);

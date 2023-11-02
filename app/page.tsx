@@ -8,7 +8,11 @@ import { useState } from "react";
 
 export default function Home() {
   const getUsers = trpc.getUsers.useQuery();
-  const addUser = trpc.addUser.useMutation();
+  const addUser = trpc.addUser.useMutation({
+    onSettled: () => {
+      getUsers.refetch();
+    },
+  });
 
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
