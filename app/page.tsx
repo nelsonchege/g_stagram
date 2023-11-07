@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { trpc } from "./_trpc/client";
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 export default function Home() {
   const getUsers = trpc.getUsers.useQuery();
@@ -14,8 +15,8 @@ export default function Home() {
     },
   });
 
-  const [firstName, setFirstName] = useState<string>("");
-  const [lastName, setLastName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [name, setName] = useState<string>("");
   return (
     <div className="p-10">
       <ThemeButton />
@@ -24,24 +25,24 @@ export default function Home() {
         <div className="flex justify-center gap-5">
           <div className="flex w-full max-w-sm items-center space-x-2 ">
             <Input
-              type="text"
-              placeholder="firstName"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div className="flex w-full max-w-sm items-center space-x-2">
             <Input
               type="text"
-              placeholder="lastName"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
+              placeholder="full name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />
           </div>
         </div>
         <Button
           onClick={async () => {
-            addUser.mutate({ firstName, lastName });
+            addUser.mutate({ name, email, id: uuidv4() });
           }}
           className="w-[15%]"
         >

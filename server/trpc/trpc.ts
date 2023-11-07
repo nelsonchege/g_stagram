@@ -4,11 +4,6 @@ import { db } from "@/db";
 import { type NextRequest } from "next/server";
 import { ZodError } from "zod";
 
-// const t = initTRPC.create();
-
-// export const router = t.router;
-// export const publicProcedure = t.procedure;
-
 interface CreateContextOptions {
   headers: Headers;
 }
