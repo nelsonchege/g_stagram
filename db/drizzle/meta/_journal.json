@@ -22,6 +22,13 @@
       "when": 1700317568672,
       "tag": "0002_wonderful_valeria_richards",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1700323565298,
+      "tag": "0003_striped_vivisector",
+      "breakpoints": true
     }
   ]
 }

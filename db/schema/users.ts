@@ -7,6 +7,9 @@ import {
   varchar,
 } from "drizzle-orm/pg-core";
 import type { AdapterAccount } from "@auth/core/adapters";
+import { relations } from "drizzle-orm";
+import { Post } from "./post";
+import { Comment } from "./Comments";
 
 export const users = pgTable("user", {
   id: text("id").notNull().primaryKey(),
@@ -16,6 +19,11 @@ export const users = pgTable("user", {
   image: text("image"),
   bio: varchar("bio", { length: 256 }),
 });
+
+export const usersRelations = relations(users, ({ many }) => ({
+  posts: many(Post),
+  Comments: many(Comment),
+}));
 
 export const accounts = pgTable(
   "account",
