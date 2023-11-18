@@ -1,8 +1,8 @@
 {
   "version": "5",
   "dialect": "pg",
-  "id": "04c458fe-9e62-4881-9a6c-b55209e3ca8d",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "0832e682-81d3-4b39-9e7c-8eed1df32e8d",
+  "prevId": "3511519c-d36d-43a1-ab42-376fc4f5d9e1",
   "tables": {
     "account": {
       "name": "account",
@@ -178,6 +178,12 @@
           "type": "text",
           "primaryKey": false,
           "notNull": false
+        },
+        "bio": {
+          "name": "bio",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
         }
       },
       "indexes": {},
@@ -227,6 +233,8 @@
   "_meta": {
     "schemas": {},
     "tables": {},
-    "columns": {}
+    "columns": {
+      "\"user\".\"varchar2\"": "\"user\".\"bio\""
+    }
   }
 }

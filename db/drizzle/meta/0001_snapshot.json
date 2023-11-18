@@ -1,8 +1,8 @@
 {
   "version": "5",
   "dialect": "pg",
-  "id": "b8cf53cd-29a8-4855-ad5e-50218acc73ce",
-  "prevId": "ce9e5ad6-5da5-495a-b94e-8e3a43868349",
+  "id": "3511519c-d36d-43a1-ab42-376fc4f5d9e1",
+  "prevId": "04c458fe-9e62-4881-9a6c-b55209e3ca8d",
   "tables": {
     "account": {
       "name": "account",
@@ -176,6 +176,12 @@
         "image": {
           "name": "image",
           "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "varchar2": {
+          "name": "varchar2",
+          "type": "varchar(256)",
           "primaryKey": false,
           "notNull": false
         }

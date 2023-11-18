@@ -1,0 +1,1 @@
+ALTER TABLE "user" RENAME COLUMN "varchar2" TO "bio";
