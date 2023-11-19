@@ -1,8 +1,7 @@
 import { DefaultSession, NextAuthOptions, getServerSession } from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { db } from "@/db";
-import { v4 as uuidv4 } from "uuid";
 
 declare module "next-auth" {
   interface Session extends DefaultSession {
@@ -21,24 +20,20 @@ export const authOptions: NextAuthOptions = {
         id: user.id,
       },
     }),
+    async redirect({ url, baseUrl }) {
+      return baseUrl;
+    },
   },
   adapter: DrizzleAdapter(db),
   providers: [
-    CredentialsProvider({
-      name: "Credentials",
-      credentials: {
-        email: { label: "Username", type: "text" },
-        password: { label: "Password", type: "password" },
-      },
-      authorize(credentials: any, req) {
-        // database operations
-        return {
-          id: uuidv4(),
-          Email: credentials.email,
-        };
-      },
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
   ],
+  pages: {
+    signIn: "/signIn",
+  },
 };
 
 // use this to get session in server components
