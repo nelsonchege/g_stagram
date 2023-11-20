@@ -5,7 +5,7 @@ import { Avatar } from "@nextui-org/react";
 const BottomBar = () => {
   return (
     <div className="w-full block sm:hidden border-t-2  bottom-0 fixed py-5">
-      <div className="flex items-center justify-center gap-20">
+      <div className="flex items-center justify-center gap-10">
         <Home size={30} />
         <Search size={30} />
         <Film size={30} />

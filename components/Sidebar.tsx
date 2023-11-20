@@ -2,7 +2,14 @@ import React from "react";
 import ThemeButton from "./ThemeButton";
 import { Separator } from "./ui/separator";
 import SideBarItems from "./SideBarItems";
-import { Film, Home, LogOut, PlusSquare, Search } from "lucide-react";
+import {
+  BookMarked,
+  Film,
+  Home,
+  LogOut,
+  PlusSquare,
+  Search,
+} from "lucide-react";
 import { Avatar } from "@nextui-org/react";
 
 const Sidebar = () => {
@@ -21,6 +28,7 @@ const Sidebar = () => {
           <SideBarItems icon={<Search size={34} />} text={"Search"} />
           <SideBarItems icon={<Film size={34} />} text={"Explore"} />
           <SideBarItems icon={<PlusSquare size={34} />} text={"Create Post"} />
+          <SideBarItems icon={<BookMarked size={34} />} text={"Saved"} />
           <SideBarItems
             icon={
               <Avatar
@@ -32,7 +40,10 @@ const Sidebar = () => {
           />
         </div>
         <div className="absolute bottom-0 py-5">
-          <SideBarItems icon={<LogOut size={28} />} text={"Log out"} />
+          <SideBarItems
+            icon={<LogOut size={28} className="ml-4" />}
+            text={"Log out"}
+          />
           <SideBarItems icon={<ThemeButton />} text={"Change Theme"} />
         </div>
       </div>
