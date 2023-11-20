@@ -11,7 +11,7 @@ export default function Home() {
       <div className="flex-1  overflow-y-auto scrollbar-hidden">
         <div style={{ height: "200vh" }}>Scrollable Content</div>
       </div>
-      <div className="hidden lg:block w-1/3 h-screen border-l-2 border-yellow-400">
+      <div className="hidden lg:block w-[25%] h-screen border-l-2 border-yellow-400">
         Right Container
       </div>
     </div>
