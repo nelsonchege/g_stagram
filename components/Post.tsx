@@ -2,9 +2,15 @@ import { Bookmark, Heart, MessageSquare, ThumbsDown } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 
-type PostProps = { name: string; src: string };
+type PostProps = {
+  name: string;
+  src: string;
+  likes: number;
+  comment: string;
+  ImgSrc: string;
+};
 
-const Post = ({ name, src }: PostProps) => {
+const Post = ({ name, src, likes, comment, ImgSrc }: PostProps) => {
   return (
     <div className="w-[95%] md:w-[600px]  flex flex-col mb-2">
       <div className="p-3 flex gap-3 items-center">
@@ -22,7 +28,15 @@ const Post = ({ name, src }: PostProps) => {
           <span className="font-semibold text-gray-600">2 days ago</span>
         </div>
       </div>
-      <div className=" border h-[500px] rounded-lg">image</div>
+      <div className=" border h-[500px] rounded-xl relative">
+        <Image
+          src={ImgSrc}
+          layout="fill"
+          alt={"user"}
+          objectFit="cover"
+          className="rounded-xl"
+        />
+      </div>
       <div className="w-full">
         <div className="w-full py-2 px-1 mb-1">
           <div className="flex justify-between">
@@ -33,11 +47,11 @@ const Post = ({ name, src }: PostProps) => {
             </div>
             <Bookmark size={28} />
           </div>
-          <div className="mt-1">20000 likes</div>
+          <div className="mt-1">{likes} likes</div>
         </div>
         <div>
           <span className="font-bold text-md">{name}</span>
-          <span> comments</span>
+          <span>{comment}</span>
         </div>
       </div>
     </div>

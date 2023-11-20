@@ -19,14 +19,23 @@ export default function Home() {
           <Post
             name={"Briano Roloff"}
             src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+            likes={0}
+            comment={"nice pic"}
+            ImgSrc={"https://i.pravatar.cc/150?u=a04258a2462d826712d"}
           />
           <Post
             name={"Myrtice Rantoul"}
             src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+            likes={0}
+            comment={"nice pic"}
+            ImgSrc={"https://i.pravatar.cc/150?u=a04258a2462d826712d"}
           />
           <Post
             name={"Livvie Kenaway"}
             src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+            likes={0}
+            comment={"nice pic"}
+            ImgSrc={"https://i.pravatar.cc/150?u=a04258114e29026708c"}
           />
         </div>
       </div>

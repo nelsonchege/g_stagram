@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import ThemeButton from "./ThemeButton";
 import { Separator } from "./ui/separator";
@@ -11,8 +13,10 @@ import {
   Search,
 } from "lucide-react";
 import { Avatar } from "@nextui-org/react";
+import { useRouter } from "next/navigation";
 
 const Sidebar = () => {
+  const router = useRouter();
   return (
     <div className="hidden sm:block md:w-[5rem] lg:w-[20%] h-screen border-r-2 lg:pl-5">
       <div className="flex flex-col items-start gap-3">
@@ -24,11 +28,31 @@ const Sidebar = () => {
         </h1>
         <Separator className="dark:bg-gray-800" />
         <div className="mt-10 lg:mt-5 w-full flex flex-col gap-5 px-3 lg:pr-5">
-          <SideBarItems icon={<Home size={34} />} text={"Home"} />
-          <SideBarItems icon={<Search size={34} />} text={"Search"} />
-          <SideBarItems icon={<Film size={34} />} text={"Explore"} />
-          <SideBarItems icon={<PlusSquare size={34} />} text={"Create Post"} />
-          <SideBarItems icon={<BookMarked size={34} />} text={"Saved"} />
+          <SideBarItems
+            icon={<Home size={34} />}
+            text={"Home"}
+            routeFunction={() => router.push("/")}
+          />
+          <SideBarItems
+            icon={<Search size={34} />}
+            text={"Search"}
+            routeFunction={() => console.log("here at Search")}
+          />
+          <SideBarItems
+            icon={<Film size={34} />}
+            text={"Explore"}
+            routeFunction={() => router.push("/explore")}
+          />
+          <SideBarItems
+            icon={<PlusSquare size={34} />}
+            text={"Create Post"}
+            routeFunction={() => router.push("/create_post")}
+          />
+          <SideBarItems
+            icon={<BookMarked size={34} />}
+            text={"Saved"}
+            routeFunction={() => router.push("/saved")}
+          />
           <SideBarItems
             icon={
               <Avatar
@@ -37,14 +61,20 @@ const Sidebar = () => {
               />
             }
             text={"Profile"}
+            routeFunction={() => router.push("/profile")}
           />
         </div>
         <div className="absolute bottom-0 py-5">
           <SideBarItems
             icon={<LogOut size={28} className="ml-4" />}
             text={"Log out"}
+            routeFunction={() => console.log("here at log out")}
           />
-          <SideBarItems icon={<ThemeButton />} text={"Change Theme"} />
+          <SideBarItems
+            icon={<ThemeButton />}
+            text={"Change Theme"}
+            routeFunction={() => console.log("here at theme")}
+          />
         </div>
       </div>
     </div>
