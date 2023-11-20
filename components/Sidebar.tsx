@@ -34,11 +34,6 @@ const Sidebar = () => {
             routeFunction={() => router.push("/")}
           />
           <SideBarItems
-            icon={<Search size={34} />}
-            text={"Search"}
-            routeFunction={() => console.log("here at Search")}
-          />
-          <SideBarItems
             icon={<Film size={34} />}
             text={"Explore"}
             routeFunction={() => router.push("/explore")}

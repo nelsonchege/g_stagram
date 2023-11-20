@@ -29,6 +29,13 @@
       "when": 1700323565298,
       "tag": "0003_striped_vivisector",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1700520152673,
+      "tag": "0004_classy_trauma",
+      "breakpoints": true
     }
   ]
 }

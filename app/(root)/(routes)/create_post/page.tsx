@@ -1,13 +1,13 @@
 import React from "react";
 
-const ExplorePage = () => {
+const CreatePostPage = () => {
   return (
     <div className="flex h-screen">
       <div className="flex-1  overflow-y-auto scrollbar-hidden">
-        <div style={{ height: "200vh" }}>Explore page</div>
+        <div>create post</div>
       </div>
     </div>
   );
 };
 
-export default ExplorePage;
+export default CreatePostPage;
