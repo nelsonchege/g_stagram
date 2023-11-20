@@ -1,0 +1,1 @@
+ALTER TABLE "posts" ADD CONSTRAINT "posts_author_id_post_id" PRIMARY KEY("author_id","post_id");
