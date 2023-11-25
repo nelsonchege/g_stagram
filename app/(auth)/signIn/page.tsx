@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import React from "react";
-import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/react";
+import { Card, CardBody, CardFooter } from "@nextui-org/react";
 import { Separator } from "@/components/ui/separator";
 import { Icons } from "@/components/icons";
 

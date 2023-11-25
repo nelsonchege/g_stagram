@@ -4,14 +4,7 @@ import React from "react";
 import ThemeButton from "./ThemeButton";
 import { Separator } from "./ui/separator";
 import SideBarItems from "./SideBarItems";
-import {
-  BookMarked,
-  Film,
-  Home,
-  LogOut,
-  PlusSquare,
-  Search,
-} from "lucide-react";
+import { BookMarked, Film, Home, LogOut, PlusSquare } from "lucide-react";
 import { Avatar } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 

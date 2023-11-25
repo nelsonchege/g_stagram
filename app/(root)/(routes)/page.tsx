@@ -1,7 +1,6 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import ThemeButton from "@/components/ThemeButton";
 import SUggestedUser from "@/components/SUggestedUser";
 import Post from "@/components/Post";
 
@@ -21,21 +20,27 @@ export default function Home() {
             src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
             likes={0}
             comment={"nice pic"}
-            ImgSrc={"https://i.pravatar.cc/150?u=a04258a2462d826712d"}
+            ImgSrc={
+              "https://images.unsplash.com/photo-1700468026406-7fc2687245ab?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            }
           />
           <Post
             name={"Myrtice Rantoul"}
             src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
             likes={0}
             comment={"nice pic"}
-            ImgSrc={"https://i.pravatar.cc/150?u=a04258a2462d826712d"}
+            ImgSrc={
+              "https://images.unsplash.com/photo-1700141933748-4635f57d694e?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            }
           />
           <Post
             name={"Livvie Kenaway"}
             src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
             likes={0}
             comment={"nice pic"}
-            ImgSrc={"https://i.pravatar.cc/150?u=a04258114e29026708c"}
+            ImgSrc={
+              "https://images.unsplash.com/photo-1684974018418-4e752cedaa3e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            }
           />
         </div>
       </div>
