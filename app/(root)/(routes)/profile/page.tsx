@@ -1,24 +1,17 @@
 import ExplorePost from "@/components/ExplorePost";
 import React from "react";
+import Tabs from "./_components/Tabs";
+import Bio from "./_components/Bio";
 
 const ProfilePage = () => {
   return (
     <div className="flex h-screen">
       <div className="flex-1  overflow-y-auto scrollbar-hidden">
         <div className="min-h-screen  flex flex-col items-center py-10">
-          <div className="w-2/3 border border-purple-500 p-3 flex">
-            <div className="w-1/3 h-44"> image</div>
-            <div className="flex-1 flex flex-col gap-10">
-              <span>username</span>
-              <div className="flex border border-purple-600 w-full justify-around px-6">
-                <div>post</div>
-                <div>liked</div>
-                <div>saved</div>
-              </div>
-              <div />
-            </div>
-          </div>
-          <div className="my-10">category list</div>
+          <Bio />
+          {/* for navigating to the different pages */}
+          <Tabs />
+          {/* contains all the different images */}
           <div className="w-[85%] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <ExplorePost
               src={"https://i.pravatar.cc/150?u=a042581f4e29026704d)"}

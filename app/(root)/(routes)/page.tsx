@@ -44,7 +44,7 @@ export default function Home() {
           />
         </div>
       </div>
-      <div className="hidden lg:block w-[25%] h-screen p-5">
+      <div className="hidden lg:block w-[30%] h-screen p-5">
         <h2 className="font-semibold text-xl">Suggested for you </h2>
         <div className="w-full py-3 mt-5">
           <SUggestedUser
