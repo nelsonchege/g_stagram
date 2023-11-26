@@ -8,7 +8,7 @@ export default function Home() {
   const { data: session } = useSession();
   console.log("session: ", session);
   return (
-    <div className="flex h-screen">
+    <div className="flex w-full h-screen">
       <div className="flex-1  overflow-y-auto scrollbar-hidden">
         <div className="min-h-screen flex flex-col items-center">
           <h1 className="py-5 pl-10 font-extrabold text-4xl self-start">

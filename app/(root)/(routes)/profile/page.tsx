@@ -5,7 +5,7 @@ import Bio from "./_components/Bio";
 
 const ProfilePage = () => {
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen w-full">
       <div className="flex-1  overflow-y-auto scrollbar-hidden">
         <div className="min-h-screen  flex flex-col items-center py-10">
           <Bio />

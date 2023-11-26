@@ -1,3 +1,4 @@
+import FollowPortal from "@/components/followPortal";
 import React from "react";
 
 type Props = {};
@@ -14,9 +15,9 @@ const Bio = (props: Props) => {
       <div className="flex-1 flex flex-col gap-10">
         <div className="flex justify-between lg:w-2/3">
           <h1 className="font-bold text-3xl">g_sak</h1>
-          <div className="border border-purple-700 py-2 px-7 rounded-md shadow-md">
+          <button className="border border-purple-700 py-2 px-7 rounded-md shadow-md">
             follow
-          </div>
+          </button>
         </div>
 
         <div className=" flex gap-12 w-2/3">

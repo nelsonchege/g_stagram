@@ -8,9 +8,10 @@ type PostProps = {
   likes: number;
   comment: string;
   ImgSrc: string;
+  isPopUp?: boolean;
 };
 
-const Post = ({ name, src, likes, comment, ImgSrc }: PostProps) => {
+const Post = ({ name, src, likes, comment, ImgSrc, isPopUp }: PostProps) => {
   return (
     <div className="w-[95%] md:w-[600px]  flex flex-col mb-2">
       <div className="p-3 flex gap-3 items-center">
@@ -28,7 +29,11 @@ const Post = ({ name, src, likes, comment, ImgSrc }: PostProps) => {
           <span className="font-semibold text-gray-600">2 days ago</span>
         </div>
       </div>
-      <div className=" border h-[500px] rounded-xl relative">
+      <div
+        className={`border ${
+          isPopUp ? "h-[300px] " : "h-[500px] "
+        } rounded-xl relative`}
+      >
         <Image
           src={ImgSrc}
           layout="fill"

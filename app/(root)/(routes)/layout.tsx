@@ -8,7 +8,7 @@ type LayoutProps = {
 
 const Layout = async ({ children }: LayoutProps) => {
   return (
-    <div className="h-screen overflow-x-hidden">
+    <div className="h-screen w-full overflow-x-hidden absolute">
       <Navbar />
       <div className="flex">
         <Sidebar />
