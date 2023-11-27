@@ -7,6 +7,7 @@ import SideBarItems from "./SideBarItems";
 import { BookMarked, Film, Home, LogOut, PlusSquare } from "lucide-react";
 import { Avatar } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
+import { signOut } from "next-auth/react";
 
 const Sidebar = () => {
   const router = useRouter();
@@ -56,7 +57,7 @@ const Sidebar = () => {
           <SideBarItems
             icon={<LogOut size={28} className="ml-4" />}
             text={"Log out"}
-            routeFunction={() => console.log("here at log out")}
+            routeFunction={() => signOut()}
           />
           <SideBarItems
             icon={<ThemeButton />}

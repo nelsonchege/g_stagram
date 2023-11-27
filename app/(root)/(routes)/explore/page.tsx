@@ -11,10 +11,10 @@ const ExplorePage = () => {
           <div className="border border-gray-300 dark:border-gray-500 p-5 my-5 rounded-xl hover:shadow-md">
             Search
           </div>
-          <div className=" my-5 flex gap-4 justify-center">
+          <div className=" my-5 flex gap-4 justify-center  overflow-x-auto p-3">
             <CategoryItem name="travel" />
             <CategoryItem name="travel" />
-            <CategoryItem name="travel & restaurant" />
+            <CategoryItem name="travel&nbsp;&&nbsp;restaurant" />
             <CategoryItem name="travel" />
             <CategoryItem name="travel" />
             <CategoryItem name="travel" />

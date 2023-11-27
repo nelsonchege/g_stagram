@@ -5,7 +5,6 @@ import { signIn } from "next-auth/react";
 import Image from "next/image";
 import React from "react";
 import { Card, CardBody, CardFooter } from "@nextui-org/react";
-import { Separator } from "@/components/ui/separator";
 import { Icons } from "@/components/icons";
 
 const SignInPage = () => {
@@ -25,19 +24,10 @@ const SignInPage = () => {
           <CardFooter className="flex flex-col mt-10 md:mt-28 gap-5 p-5">
             <span className="text-xl"> Log in to your account</span>
             <Button
-              className="w-full "
+              className="w-2/3 h-12 "
               size={"lg"}
               onClick={() => signIn("google")}
             >
-              <span className="my-5 text-xl">sign in with google</span>
-              <Icons.google className="h-4 w-4 ml-3 " />
-            </Button>
-            <div className="w-full flex justify-center items-center gap-3">
-              <Separator className="bg-gray-300/90 w-[10rem] md:w-[15rem] dark:bg-gray-500" />
-              <span>or</span>
-              <Separator className="bg-gray-300/90 dark:bg-gray-500   w-[10rem] md:w-[15rem]" />
-            </div>
-            <Button className="w-full" onClick={() => signIn("google")}>
               <span className="my-5 text-xl">sign in with google</span>
               <Icons.google className="h-4 w-4 ml-3 " />
             </Button>

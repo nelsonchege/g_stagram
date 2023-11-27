@@ -20,9 +20,6 @@ export const authOptions: NextAuthOptions = {
         id: user.id,
       },
     }),
-    async redirect({ url, baseUrl }) {
-      return baseUrl;
-    },
   },
   adapter: DrizzleAdapter(db),
   providers: [

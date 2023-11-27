@@ -1,12 +1,7 @@
-"use client";
-
-import { useSession } from "next-auth/react";
 import SUggestedUser from "@/components/SUggestedUser";
 import Post from "@/components/Post";
 
-export default function Home() {
-  const { data: session } = useSession();
-  console.log("session: ", session);
+export default async function Home() {
   return (
     <div className="flex w-full h-screen">
       <div className="flex-1  overflow-y-auto scrollbar-hidden">

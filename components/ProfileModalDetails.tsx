@@ -10,10 +10,6 @@ type ProfileModalDetailsProps = {
   bgSrc: string;
 };
 
-const tags = Array.from({ length: 50 }).map(
-  (_, i, a) => `v1.2.0-beta.${a.length - i}`
-);
-
 const ProfileModalDetails = ({ src, bgSrc }: ProfileModalDetailsProps) => {
   return (
     <div className="w-[90%] lg:w-2/3 h-3/4 bg-background border-2 bg-opacity-100 mx-auto my-auto rounded-xl shadow-lg flex flex-col lg:flex-row gap-3">
