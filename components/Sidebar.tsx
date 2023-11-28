@@ -5,11 +5,15 @@ import ThemeButton from "./ThemeButton";
 import { Separator } from "./ui/separator";
 import SideBarItems from "./SideBarItems";
 import { BookMarked, Film, Home, LogOut, PlusSquare } from "lucide-react";
-import { Avatar } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
+import UsersAvatar from "./UsersAvatar";
 
-const Sidebar = () => {
+type SidebarProps = {
+  src: string;
+};
+
+const Sidebar = ({ src }: SidebarProps) => {
   const router = useRouter();
   return (
     <div className="hidden sm:block md:w-[5rem] lg:w-[20%] h-screen border-r-2 lg:pl-5">
@@ -43,12 +47,7 @@ const Sidebar = () => {
             routeFunction={() => router.push("/saved")}
           />
           <SideBarItems
-            icon={
-              <Avatar
-                src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
-                size="md"
-              />
-            }
+            icon={<UsersAvatar src={src} />}
             text={"Profile"}
             routeFunction={() => router.push("/profile")}
           />

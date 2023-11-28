@@ -6,7 +6,7 @@ import { convertFileToUrl } from "@/lib/utils";
 import { UploadButton } from "@uploadthing/react";
 import { OurFileRouter } from "@/app/api/uploadthing/core";
 import { Button } from "./ui/button";
-import Image from "next/legacy/image";
+import Image from "next/image";
 
 type FileUploaderProps = {
   fieldChange: (filesUrl: string) => void;
@@ -23,10 +23,12 @@ const ImageUpload = ({ fieldChange }: FileUploaderProps) => {
             <Image
               src={fileUrl}
               alt="image"
-              layout="fill"
-              objectFit="center"
               className="rounded-lg"
-            />
+              fill
+              sizes="100vw"
+              style={{
+                objectFit: "center"
+              }} />
           </div>
           {/* @ts-ignore */}
           <UploadButton<OurFileRouter>
@@ -57,7 +59,10 @@ const ImageUpload = ({ fieldChange }: FileUploaderProps) => {
             height={77}
             priority
             alt="file upload"
-          />
+            style={{
+              maxWidth: "100%",
+              height: "auto"
+            }} />
 
           <h3 className="base-medium text-light-2 mb-2 mt-6">
             Drag photo here

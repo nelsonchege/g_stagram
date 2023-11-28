@@ -14,14 +14,21 @@ const Layout = async ({ children }: LayoutProps) => {
   if (!session || !session.user) {
     redirect("/signIn");
   }
+  let src;
+  if (typeof session.user.image !== "string") {
+    src = "";
+  } else {
+    src = session.user.image;
+  }
+
   return (
     <div className="h-screen w-full overflow-x-hidden absolute">
       <Navbar />
       <div className="flex">
-        <Sidebar />
+        <Sidebar src={src} />
         <div className="w-full">{children}</div>
       </div>
-      <BottomBar />
+      <BottomBar src={src} />
     </div>
   );
 };

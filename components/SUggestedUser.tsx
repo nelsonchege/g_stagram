@@ -1,5 +1,5 @@
 import { Avatar } from "@nextui-org/react";
-import Image from "next/legacy/image";
+import Image from "next/image";
 import React from "react";
 
 type SUggestedUserProps = {
@@ -18,7 +18,10 @@ const SUggestedUser = ({ name, comment, src }: SUggestedUserProps) => {
           width={50}
           alt={"user"}
           className="rounded-md"
-        />
+          style={{
+            maxWidth: "100%",
+            height: "auto"
+          }} />
 
         <div className="flex flex-col">
           <span className="font-bold text-xl">{name}</span>

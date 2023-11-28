@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { signIn } from "next-auth/react";
-import Image from "next/legacy/image";
+import Image from "next/image";
 import React from "react";
 import { Card, CardBody, CardFooter } from "@nextui-org/react";
 import { Icons } from "@/components/icons";
@@ -37,11 +37,13 @@ const SignInPage = () => {
       <div className="hidden lg:block lg:w-1/2 relative">
         <Image
           src={"/side-img.svg"}
-          layout="fill"
-          objectFit="contain"
           alt={"hello instagram"}
           className=""
-        />
+          fill
+          sizes="100vw"
+          style={{
+            objectFit: "contain"
+          }} />
       </div>
     </div>
   );

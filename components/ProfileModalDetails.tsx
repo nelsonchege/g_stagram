@@ -1,5 +1,5 @@
 import { Avatar } from "@nextui-org/react";
-import Image from "next/legacy/image";
+import Image from "next/image";
 import React from "react";
 import { ScrollArea } from "./ui/scroll-area";
 import Post from "./Post";
@@ -17,10 +17,12 @@ const ProfileModalDetails = ({ src, bgSrc }: ProfileModalDetailsProps) => {
         <Image
           src={bgSrc}
           alt={"image"}
-          layout="fill"
-          objectFit="cover"
           className="rounded-xl"
-        />
+          fill
+          sizes="100vw"
+          style={{
+            objectFit: "cover"
+          }} />
       </div>
       <div className="hidden  w-full lg:w-1/2 lg:flex md:flex-col">
         <div className="h-20 border-b-2 flex items-center pl-5 gap-5">
@@ -30,7 +32,10 @@ const ProfileModalDetails = ({ src, bgSrc }: ProfileModalDetailsProps) => {
             width={60}
             height={60}
             className="rounded-full border-2"
-          />
+            style={{
+              maxWidth: "100%",
+              height: "auto"
+            }} />
           <div>name</div>
           <div>follow</div>
         </div>

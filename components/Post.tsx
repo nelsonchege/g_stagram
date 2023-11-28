@@ -1,5 +1,5 @@
 import { Bookmark, Heart, MessageSquare, ThumbsDown } from "lucide-react";
-import Image from "next/legacy/image";
+import Image from "next/image";
 import React from "react";
 
 type PostProps = {
@@ -22,7 +22,10 @@ const Post = ({ name, src, likes, comment, ImgSrc, isPopUp }: PostProps) => {
             width={60}
             alt={"user"}
             className="rounded-full"
-          />
+            style={{
+              maxWidth: "100%",
+              height: "auto"
+            }} />
         </div>
         <div>
           <h2 className="font-bold text-xl">{name}</h2>
@@ -36,11 +39,13 @@ const Post = ({ name, src, likes, comment, ImgSrc, isPopUp }: PostProps) => {
       >
         <Image
           src={ImgSrc}
-          layout="fill"
           alt={"user"}
-          objectFit="cover"
           className="rounded-xl"
-        />
+          fill
+          sizes="100vw"
+          style={{
+            objectFit: "cover"
+          }} />
       </div>
       <div className="w-full">
         <div className="w-full py-2 px-1 mb-1">
