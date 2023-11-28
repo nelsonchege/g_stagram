@@ -17,13 +17,16 @@ import {
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import { trpc } from "@/app/_trpc/client";
+import toast from "react-hot-toast";
 
 const PostValidation = z.object({
-  caption: z
+  content: z
     .string()
     .min(5, { message: "Minimum 5 characters." })
     .max(2200, { message: "Maximum 2,200 caracters" }),
-  file: z.custom<File[]>(),
+  image: z.string(),
   location: z
     .string()
     .min(1, { message: "This field is required" })
@@ -31,18 +34,27 @@ const PostValidation = z.object({
 });
 
 const CreatePostPage = () => {
+  const addPost = trpc.createPost.useMutation();
+  const router = useRouter();
   const form = useForm<z.infer<typeof PostValidation>>({
     resolver: zodResolver(PostValidation),
     defaultValues: {
-      caption: "",
-      file: [],
+      content: "",
+      image: "",
       location: "",
     },
   });
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof PostValidation>) {
-    console.log(values);
+    const postingData = async (values: z.infer<typeof PostValidation>) => {
+      await addPost.mutate(values);
+    };
+    toast.promise(postingData(values), {
+      loading: "Loading",
+      success: "posted successfully",
+      error: "Error when fetching",
+    });
   }
   return (
     <div className="flex h-screen">
@@ -58,31 +70,27 @@ const CreatePostPage = () => {
           >
             <FormField
               control={form.control}
-              name="file"
+              name="image"
               render={({ field }) => (
                 <FormItem className="w-[95%] sm:w-2/3">
                   <FormControl>
-                    <ImageUpload
-                      fieldChange={field.onChange}
-                      mediaUrl={""}
-                      {...field}
-                    />
+                    <ImageUpload fieldChange={field.onChange} {...field} />
                   </FormControl>
                 </FormItem>
               )}
             />
             <FormField
               control={form.control}
-              name="caption"
+              name="content"
               render={({ field }) => (
                 <FormItem className="w-[95%] sm:w-2/3">
                   <FormLabel className="font-semibold text-md">
-                    Add Caption
+                    Add content
                   </FormLabel>
                   <FormControl>
                     <Textarea
                       className="bg-secondary"
-                      placeholder="Enter your caption"
+                      placeholder="Enter your content"
                       {...field}
                     />
                   </FormControl>
@@ -115,6 +123,7 @@ const CreatePostPage = () => {
                 variant={"destructive"}
                 className="h-12 font-bold text-xl"
                 type="button"
+                onClick={() => router.push("/")}
               >
                 Discard
               </Button>

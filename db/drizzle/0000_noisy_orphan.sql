@@ -1,3 +1,28 @@
+CREATE TABLE IF NOT EXISTS "comments" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"content" text,
+	"author_id" integer,
+	"post_id" integer,
+	"createdAt" timestamp DEFAULT now(),
+	"updatedAt" timestamp,
+	"likes" integer,
+	"dislikes" integer,
+	"replytoId" integer
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "comments_relation" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"parent_id" integer,
+	"child_id" integer
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "posts" (
+	"author_id" text,
+	"post_id" integer,
+	"createdAt" timestamp DEFAULT now(),
+	CONSTRAINT posts_author_id_post_id PRIMARY KEY("author_id","post_id")
+);
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "account" (
 	"userId" text NOT NULL,
 	"type" text NOT NULL,
@@ -24,7 +49,8 @@ CREATE TABLE IF NOT EXISTS "user" (
 	"name" text,
 	"email" text NOT NULL,
 	"emailVerified" timestamp DEFAULT now(),
-	"image" text
+	"image" text,
+	"bio" varchar(256)
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "verificationToken" (
@@ -33,6 +59,12 @@ CREATE TABLE IF NOT EXISTS "verificationToken" (
 	"expires" timestamp NOT NULL,
 	CONSTRAINT verificationToken_identifier_token PRIMARY KEY("identifier","token")
 );
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "posts" ADD CONSTRAINT "posts_author_id_user_id_fk" FOREIGN KEY ("author_id") REFERENCES "user"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
 --> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "account" ADD CONSTRAINT "account_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE cascade ON UPDATE no action;

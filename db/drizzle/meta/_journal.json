@@ -5,57 +5,22 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1700316988512,
-      "tag": "0000_gray_kree",
+      "when": 1701128871349,
+      "tag": "0000_noisy_orphan",
       "breakpoints": true
     },
     {
       "idx": 1,
       "version": "5",
-      "when": 1700317475557,
-      "tag": "0001_smooth_maginty",
+      "when": 1701129129621,
+      "tag": "0001_white_eternals",
       "breakpoints": true
     },
     {
       "idx": 2,
       "version": "5",
-      "when": 1700317568672,
-      "tag": "0002_wonderful_valeria_richards",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "5",
-      "when": 1700323565298,
-      "tag": "0003_striped_vivisector",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "5",
-      "when": 1700520152673,
-      "tag": "0004_classy_trauma",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "5",
-      "when": 1700520778761,
-      "tag": "0005_brainy_blizzard",
-      "breakpoints": true
-    },
-    {
-      "idx": 6,
-      "version": "5",
-      "when": 1700521026599,
-      "tag": "0006_perfect_hercules",
-      "breakpoints": true
-    },
-    {
-      "idx": 7,
-      "version": "5",
-      "when": 1700521084702,
-      "tag": "0007_tough_psylocke",
+      "when": 1701131535523,
+      "tag": "0002_living_maverick",
       "breakpoints": true
     }
   ]

@@ -5,6 +5,7 @@ import "../styles/fonts.css";
 import { ThemeProvider } from "@/provider/theme-provider";
 import TrpcProvider from "./_trpc/TrpcProvider";
 import NextAuthSessionProvider from "@/provider/session-provider";
+import { ToasterProvider } from "@/provider/toast-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,7 +29,10 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <NextAuthSessionProvider>
-            <TrpcProvider>{children}</TrpcProvider>
+            <TrpcProvider>
+              <ToasterProvider />
+              {children}
+            </TrpcProvider>
           </NextAuthSessionProvider>
         </ThemeProvider>
       </body>

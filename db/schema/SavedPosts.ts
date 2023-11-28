@@ -9,19 +9,8 @@ import {
 import { users } from "./users";
 import { Post } from "./post";
 
-export const SavedPost = pgTable(
-  "posts",
-  {
-    authorId: text("author_id").references(() => users.id),
-    postId: integer("post_id"),
-    createdAt: timestamp("createdAt").defaultNow(),
-  },
-  (t) => ({
-    pk: primaryKey(t.authorId, t.postId),
-  })
-);
-
-export const SavedPostsRelations = relations(SavedPost, ({ many }) => ({
-  author: many(users),
-  posts: many(Post),
-}));
+export const SavedPost = pgTable("saved_posts", {
+  authorId: text("author_id"),
+  postId: integer("post_id"),
+  createdAt: timestamp("createdAt").defaultNow(),
+});

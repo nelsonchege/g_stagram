@@ -1,7 +1,8 @@
 import { z } from "zod";
-import { publicProcedure, createTRPCRouter } from "./trpc";
+import { publicProcedure, protectedProcedure, createTRPCRouter } from "./trpc";
 import { db } from "@/db";
 import { users } from "@/db/schema/users";
+import { Post } from "@/db/schema/post";
 
 export const appRouter = createTRPCRouter({
   getUsers: publicProcedure.query(async () => {
@@ -10,16 +11,18 @@ export const appRouter = createTRPCRouter({
     const fetchusers = await db.select().from(users);
     return fetchusers;
   }),
-  addUser: publicProcedure
+  createPost: protectedProcedure
     .input(
       z.object({
-        id: z.string(),
-        email: z.string(),
-        name: z.string(),
+        content: z.string(),
+        image: z.string(),
+        location: z.string(),
       })
     )
-    .mutation(async (opts) => {
-      await db.insert(users).values(opts.input);
+    .mutation(async ({ input, ctx }) => {
+      const payload = { ...input, authorId: ctx.session.user.id };
+      console.log("payload: ", payload);
+      await db.insert(Post).values(payload);
       return true;
     }),
 });

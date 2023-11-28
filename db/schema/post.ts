@@ -4,8 +4,9 @@ import { users } from "./users";
 
 export const Post = pgTable("posts", {
   id: serial("id").primaryKey(),
-  authorId: integer("author_id"),
+  authorId: text("author_id"),
   content: text("content"),
+  location: text("location"),
   image: text("image"),
   likes: integer("likes"),
   dislikes: integer("dislikes"),
