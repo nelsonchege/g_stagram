@@ -1,5 +1,5 @@
 import { Bookmark, Heart, MessageSquare, ThumbsDown } from "lucide-react";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import React from "react";
 
 type PostProps = {

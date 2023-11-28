@@ -6,7 +6,7 @@ import { convertFileToUrl } from "@/lib/utils";
 import { UploadButton } from "@uploadthing/react";
 import { OurFileRouter } from "@/app/api/uploadthing/core";
 import { Button } from "./ui/button";
-import Image from "next/image";
+import Image from "next/legacy/image";
 
 type FileUploaderProps = {
   fieldChange: (filesUrl: string) => void;

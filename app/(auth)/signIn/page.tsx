@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { signIn } from "next-auth/react";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import React from "react";
 import { Card, CardBody, CardFooter } from "@nextui-org/react";
 import { Icons } from "@/components/icons";

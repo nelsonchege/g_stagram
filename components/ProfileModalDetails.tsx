@@ -1,5 +1,5 @@
 import { Avatar } from "@nextui-org/react";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import React from "react";
 import { ScrollArea } from "./ui/scroll-area";
 import Post from "./Post";
