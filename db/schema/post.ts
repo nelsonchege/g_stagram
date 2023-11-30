@@ -1,4 +1,5 @@
 import { relations } from "drizzle-orm";
+import { InferInsertModel, InferSelectModel } from "drizzle-orm";
 import { pgTable, text, serial, integer, timestamp } from "drizzle-orm/pg-core";
 import { users } from "./users";
 
@@ -19,3 +20,6 @@ export const postsRelations = relations(Post, ({ one }) => ({
     references: [users.id],
   }),
 }));
+
+export type NewPost = InferInsertModel<typeof Post>;
+export type Posts = InferSelectModel<typeof Post>;

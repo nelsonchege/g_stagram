@@ -47,14 +47,20 @@ const CreatePostPage = () => {
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof PostValidation>) {
-    const postingData = async (values: z.infer<typeof PostValidation>) => {
-      await addPost.mutate(values);
-    };
-    toast.promise(postingData(values), {
-      loading: "Loading",
-      success: "posted successfully",
-      error: "Error when fetching",
-    });
+    try {
+      const postingData = async (values: z.infer<typeof PostValidation>) => {
+        await addPost.mutate(values);
+      };
+      toast.promise(postingData(values), {
+        loading: "Loading",
+        success: "posted successfully",
+        error: "Error when fetching",
+      });
+      router.push("/");
+    } catch (error) {
+      toast.error("something went wrong");
+      router.refresh();
+    }
   }
   return (
     <div className="flex h-screen">

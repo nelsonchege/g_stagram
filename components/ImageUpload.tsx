@@ -1,11 +1,8 @@
 "use client";
 
-import { useCallback, useState } from "react";
-import { FileWithPath, useDropzone } from "react-dropzone";
-import { convertFileToUrl } from "@/lib/utils";
+import { useState } from "react";
 import { UploadButton } from "@uploadthing/react";
 import { OurFileRouter } from "@/app/api/uploadthing/core";
-import { Button } from "./ui/button";
 import Image from "next/image";
 
 type FileUploaderProps = {
@@ -23,12 +20,10 @@ const ImageUpload = ({ fieldChange }: FileUploaderProps) => {
             <Image
               src={fileUrl}
               alt="image"
+              layout="fill"
+              objectFit="cover"
               className="rounded-lg"
-              fill
-              sizes="100vw"
-              style={{
-                objectFit: "center"
-              }} />
+            />
           </div>
           {/* @ts-ignore */}
           <UploadButton<OurFileRouter>
@@ -61,8 +56,9 @@ const ImageUpload = ({ fieldChange }: FileUploaderProps) => {
             alt="file upload"
             style={{
               maxWidth: "100%",
-              height: "auto"
-            }} />
+              height: "auto",
+            }}
+          />
 
           <h3 className="base-medium text-light-2 mb-2 mt-6">
             Drag photo here
