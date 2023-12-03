@@ -5,29 +5,8 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1701128871349,
-      "tag": "0000_noisy_orphan",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1701129129621,
-      "tag": "0001_white_eternals",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1701131535523,
-      "tag": "0002_living_maverick",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "5",
-      "when": 1701332383254,
-      "tag": "0003_windy_photon",
+      "when": 1701531136053,
+      "tag": "0000_kind_leader",
       "breakpoints": true
     }
   ]

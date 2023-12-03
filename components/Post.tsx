@@ -3,7 +3,7 @@
 import { Bookmark, Heart, MessageSquare, ThumbsDown } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { trpc } from "@/app/_trpc/client";
 
 type PostProps = {
@@ -13,8 +13,11 @@ type PostProps = {
   comment: string;
   ImgSrc: string;
   isPopUp?: boolean;
-  postId: number;
   createdAt: any;
+  postId: number;
+  liked: boolean;
+  disliked: boolean;
+  saved: boolean;
 };
 
 const Post = ({
@@ -24,40 +27,60 @@ const Post = ({
   comment,
   ImgSrc,
   isPopUp,
-  postId,
   createdAt,
+  postId,
+  liked,
+  disliked,
+  saved,
 }: PostProps) => {
-  const [isLiked, setIsLiked] = useState<boolean>(false);
-  const [isDIsLiked, setDisIsLiked] = useState<boolean>(false);
-  const [isSaved, setIsSaved] = useState<boolean>(false);
+  const [isLiked, setIsLiked] = useState<boolean>(liked);
+  const [isDIsLiked, setIsDisLiked] = useState<boolean>(disliked);
+  const [isSaved, setIsSaved] = useState<boolean>(saved);
 
   const likePost = trpc.likePost.useMutation();
   const dislikePost = trpc.dislikePost.useMutation();
   const savePost = trpc.savePost.useMutation();
 
-  const SavePost = () => {
-    setIsSaved(!isSaved);
-    if (isSaved) {
-      savePost.mutate({ postId });
+  const MessagePost = async (postId: number) => {
+    console.log("write comment", postId);
+  };
+  const SavePost = async (postId: number) => {
+    if (!isSaved) {
+      setIsSaved(!isSaved);
+      savePost.mutate({ postId, category: "SAVE" });
+    } else {
+      setIsSaved(!isSaved);
+      savePost.mutate({ postId, category: "UNSAVE" });
     }
   };
-  const MessagePost = () => {};
-
-  const LikePost = () => {
-    setDisIsLiked(false);
-    setIsLiked(!isLiked);
-
-    if (isLiked) {
-      likePost.mutate({ postId });
+  const LikePost = async (postId: number) => {
+    if (!isLiked) {
+      //if someone has disliked the post
+      if (isDIsLiked) {
+        //first delete the dislike
+        setIsDisLiked(!isDIsLiked);
+        dislikePost.mutate({ postId, category: "UNDISLIKE" });
+      }
+      setIsLiked(!isLiked);
+      likePost.mutate({ postId, category: "LIKE" });
+    } else {
+      setIsLiked(!isLiked);
+      likePost.mutate({ postId, category: "UNLIKE" });
     }
   };
-
-  const DisLikePost = () => {
-    setIsLiked(false);
-    setDisIsLiked(!isDIsLiked);
-
-    if (isDIsLiked) {
-      dislikePost.mutate({ postId });
+  const DisLikePost = async (postId: number) => {
+    if (!isDIsLiked) {
+      //if someone has liked the post
+      if (isLiked) {
+        //first delete the like
+        setIsLiked(!isLiked);
+        likePost.mutate({ postId, category: "UNLIKE" });
+      }
+      setIsDisLiked(!isDIsLiked);
+      dislikePost.mutate({ postId, category: "DISLIKE" });
+    } else {
+      setIsDisLiked(!isDIsLiked);
+      dislikePost.mutate({ postId, category: "UNDISLIKE" });
     }
   };
 
@@ -109,24 +132,25 @@ const Post = ({
                 color={isLiked ? "red" : "black"}
                 fill={isLiked ? "red" : "white"}
                 className="cursor-pointer"
-                onClick={LikePost}
+                onClick={() => LikePost(postId)}
               />
               <MessageSquare
                 size={28}
                 className="cursor-pointer"
-                onClick={MessagePost}
+                onClick={() => MessagePost(postId)}
               />
               <ThumbsDown
                 size={28}
                 className="cursor-pointer"
                 color={isDIsLiked ? "blue" : "black"}
                 fill={isDIsLiked ? "blue" : "white"}
-                onClick={DisLikePost}
+                onClick={() => DisLikePost(postId)}
               />
             </div>
             <Bookmark
               size={28}
-              onClick={SavePost}
+              className="cursor-pointer"
+              onClick={() => SavePost(postId)}
               color={isSaved ? "black" : "black"}
               fill={isSaved ? "black" : "white"}
             />

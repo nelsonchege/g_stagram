@@ -22,4 +22,4 @@ export const postsRelations = relations(Post, ({ one }) => ({
 }));
 
 export type NewPost = InferInsertModel<typeof Post>;
-export type Posts = InferSelectModel<typeof Post>;
+export type FetchPost = InferSelectModel<typeof Post>;
