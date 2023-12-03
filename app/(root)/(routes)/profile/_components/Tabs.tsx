@@ -22,7 +22,6 @@ const Tabs = () => {
   const { data: initialSavedPosts } = trpc.getSavedPost.useQuery();
 
   const [Posts, setPosts] = useState(initialPosts);
-  console.log("users post: ", Posts);
   const memoizedPosts = useMemo(() => initialPosts, [initialPosts]);
   const memoizedLIkedPosts = useMemo(
     () => initialLIkedPosts,
