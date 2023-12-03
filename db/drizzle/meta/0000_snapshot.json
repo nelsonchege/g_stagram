@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "pg",
-  "id": "7685642b-0d9d-4f3e-abff-7579a2b966ec",
+  "id": "5fbb0b09-5d57-4d7b-9600-76d9ab202c0c",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "comments": {
@@ -209,13 +209,15 @@
           "name": "likes",
           "type": "integer",
           "primaryKey": false,
-          "notNull": false
+          "notNull": false,
+          "default": 0
         },
         "dislikes": {
           "name": "dislikes",
           "type": "integer",
           "primaryKey": false,
-          "notNull": false
+          "notNull": false,
+          "default": 0
         },
         "createdAt": {
           "name": "createdAt",

@@ -5,9 +5,15 @@ type ModalContentProps = {
   onClose: () => void;
   src: string;
   bgSrc: string;
+  PostDetails: any;
 };
 
-const ModalContent = ({ src, bgSrc, onClose }: ModalContentProps) => {
+const ModalContent = ({
+  src,
+  bgSrc,
+  onClose,
+  PostDetails,
+}: ModalContentProps) => {
   return (
     <div className="h-screen w-screen bg-black  bg-opacity-50 absolute f">
       <div className="h-full relative flex flex-col">
@@ -17,7 +23,11 @@ const ModalContent = ({ src, bgSrc, onClose }: ModalContentProps) => {
         >
           x
         </div>
-        <ProfileModalDetails src={src} bgSrc={bgSrc} />
+        <ProfileModalDetails
+          src={src}
+          bgSrc={bgSrc}
+          PostDetails={PostDetails}
+        />
       </div>
     </div>
   );

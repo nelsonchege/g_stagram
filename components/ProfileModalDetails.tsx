@@ -1,16 +1,48 @@
-import { Avatar } from "@nextui-org/react";
+"use client";
+
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { ScrollArea } from "./ui/scroll-area";
 import Post from "./Post";
 import { Bookmark, Heart, MessageSquare, ThumbsDown } from "lucide-react";
+import { trpc } from "@/app/_trpc/client";
 
 type ProfileModalDetailsProps = {
   src: string;
   bgSrc: string;
+  PostDetails: any;
 };
 
-const ProfileModalDetails = ({ src, bgSrc }: ProfileModalDetailsProps) => {
+const ProfileModalDetails = ({
+  src,
+  bgSrc,
+  PostDetails,
+}: ProfileModalDetailsProps) => {
+  const { data: initialLikes } = trpc.getLikedDislikedAndSaved.useQuery();
+  const memoizedLikes = useMemo(() => initialLikes, [initialLikes]);
+  const [Likes, setLikes] = useState(initialLikes);
+  useEffect(() => {
+    setLikes(memoizedLikes);
+  }, [memoizedLikes]);
+  const getliked = (PostId: number, category: string) => {
+    if (Likes == undefined) {
+      return false;
+    }
+    if (category == "LIKED") {
+      const likes = Likes!["liked_posts"];
+      return likes.some((item) => item.postId === PostId);
+    } else if (category == "DISLIKED") {
+      const likes = Likes!["disliked_posts"];
+      return likes.some((item) => item.postId === PostId);
+    } else if (category == "SAVED") {
+      const likes = Likes!["saved_posts"];
+
+      const response = likes.some((item) => item.postId === PostId);
+      console.log("response: ", response);
+      return response;
+    }
+  };
+
   return (
     <div className="w-[90%] lg:w-2/3 h-3/4 bg-background border-2 bg-opacity-100 mx-auto my-auto rounded-xl shadow-lg flex flex-col lg:flex-row gap-3">
       <div className="hidden sm:block w-full lg:w-1/2  relative ">
@@ -21,8 +53,9 @@ const ProfileModalDetails = ({ src, bgSrc }: ProfileModalDetailsProps) => {
           fill
           sizes="100vw"
           style={{
-            objectFit: "cover"
-          }} />
+            objectFit: "cover",
+          }}
+        />
       </div>
       <div className="hidden  w-full lg:w-1/2 lg:flex md:flex-col">
         <div className="h-20 border-b-2 flex items-center pl-5 gap-5">
@@ -34,8 +67,9 @@ const ProfileModalDetails = ({ src, bgSrc }: ProfileModalDetailsProps) => {
             className="rounded-full border-2"
             style={{
               maxWidth: "100%",
-              height: "auto"
-            }} />
+              height: "auto",
+            }}
+          />
           <div>name</div>
           <div>follow</div>
         </div>
@@ -73,10 +107,15 @@ const ProfileModalDetails = ({ src, bgSrc }: ProfileModalDetailsProps) => {
         <Post
           name={"Briano Roloff"}
           src={src}
-          likes={0}
-          comment={"nice pic"}
+          likes={PostDetails.likes ? PostDetails.likes : 0}
+          comment={PostDetails.content!}
           ImgSrc={bgSrc}
           isPopUp={false}
+          createdAt={PostDetails.createdAt}
+          postId={PostDetails.postId}
+          liked={getliked(PostDetails.id, "LIKED") || false}
+          disliked={getliked(PostDetails.id, "DISLIKED") || false}
+          saved={getliked(PostDetails.id, "SAVED") || false}
         />
       </div>
     </div>

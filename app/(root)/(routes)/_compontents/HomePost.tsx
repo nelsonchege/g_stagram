@@ -5,7 +5,10 @@ import { trpc } from "@/app/_trpc/client";
 import Post from "@/components/Post";
 
 const HomePost = () => {
-  const { data: initialPosts } = trpc.getPosts.useQuery();
+  const { data: initialPosts } = trpc.getPosts.useQuery({
+    category: "general",
+    type: "object",
+  });
   const { data: initialLikes } = trpc.getLikedDislikedAndSaved.useQuery();
 
   const [Posts, setPosts] = useState(initialPosts);
@@ -20,6 +23,9 @@ const HomePost = () => {
   }, [memoizedPosts, memoizedLikes]);
 
   const getliked = (PostId: number, category: string) => {
+    if (Likes == undefined) {
+      return false;
+    }
     if (category == "LIKED") {
       const likes = Likes!["liked_posts"];
       return likes.some((item) => item.postId === PostId);
@@ -39,6 +45,7 @@ const HomePost = () => {
     <>
       {Posts ? (
         <>
+          {/* @ts-ignore */}
           {Posts.map((post) => (
             <Post
               key={post.id}

@@ -3,7 +3,7 @@ import { publicProcedure, protectedProcedure, createTRPCRouter } from "./trpc";
 import { db } from "@/db";
 import { FetchUsers, users } from "@/db/schema/users";
 import { FetchPost, Post } from "@/db/schema/post";
-import { asc, desc, sql } from "drizzle-orm";
+import { desc, eq, sql } from "drizzle-orm";
 import { LikedPost } from "@/db/schema/LikedPosts";
 import { DisLikedPost } from "@/db/schema/DislikedPost";
 import { SavedPost } from "@/db/schema/SavedPosts";
@@ -17,16 +17,87 @@ export const appRouter = createTRPCRouter({
     const fetchusers = await db.select().from(users);
     return fetchusers;
   }),
-  getPosts: publicProcedure.query(async () => {
-    const fetchPosts = await db.query.Post.findMany({
-      with: {
-        author: true,
-      },
-      orderBy: [desc(Post.createdAt)],
-    });
+  getPosts: protectedProcedure
+    .input(z.object({ category: z.string(), type: z.string() }))
+    .query(async ({ input, ctx }) => {
+      if (input.category == "general") {
+        const fetchPosts = await db.query.Post.findMany({
+          with: {
+            author: true,
+          },
+          orderBy: [desc(Post.createdAt)],
+        });
+        return fetchPosts;
+      } else if (input.category == "personal") {
+        const fetchPosts = await db.query.Post.findMany({
+          with: {
+            author: true,
+          },
+          orderBy: [desc(Post.createdAt)],
+          where: sql`${Post.authorId} = ${ctx.session?.user.id}`,
+        });
 
-    return fetchPosts;
-  }),
+        if (input.type === "length") {
+          return fetchPosts.length;
+        } else {
+          return fetchPosts;
+        }
+      }
+    }),
+  getLikedPost: protectedProcedure
+    .input(z.string().optional())
+    .query(async ({ input, ctx }) => {
+      const likedPost = await db
+        .select({ postId: LikedPost.postId })
+        .from(LikedPost)
+        .where(sql`${LikedPost.authorId} = ${ctx.session.user.id}`);
+
+      if (input == "length") {
+        return likedPost.length;
+      } else {
+        if (likedPost.length < 1) {
+          return undefined;
+        }
+        let likedList: number[] = [];
+        likedPost.map((post) => likedList.push(post.postId!));
+
+        const fetchPosts = await db.query.Post.findMany({
+          where: (posts, { inArray }) => inArray(posts.id, likedList),
+          with: {
+            author: true,
+          },
+          orderBy: [desc(Post.createdAt)],
+        });
+        return fetchPosts;
+      }
+    }),
+  getSavedPost: protectedProcedure
+    .input(z.string().optional())
+    .query(async ({ input, ctx }) => {
+      const savedPost = await db
+        .select({ postId: SavedPost.postId })
+        .from(SavedPost)
+        .where(sql`${SavedPost.authorId} = ${ctx.session.user.id}`);
+
+      if (input == "length") {
+        return savedPost.length;
+      } else {
+        if (savedPost.length < 1) {
+          return undefined;
+        }
+        let savedList: number[] = [];
+        savedPost.map((post) => savedList.push(post.postId!));
+
+        const fetchPosts = await db.query.Post.findMany({
+          where: (posts, { inArray }) => inArray(posts.id, savedList),
+          with: {
+            author: true,
+          },
+          orderBy: [desc(Post.createdAt)],
+        });
+        return fetchPosts;
+      }
+    }),
   getLikedDislikedAndSaved: protectedProcedure.query(async ({ ctx }) => {
     const liked_posts = await db
       .select()
@@ -69,12 +140,20 @@ export const appRouter = createTRPCRouter({
     .mutation(async ({ input, ctx }) => {
       if (input.category === "UNLIKE") {
         await db
+          .update(Post)
+          .set({ likes: sql`${Post.likes} - 1` })
+          .where(eq(Post.id, input.postId));
+        await db
           .delete(LikedPost)
           .where(
             sql`${LikedPost.postId} = ${input.postId} and  ${LikedPost.authorId} = ${ctx.session.user.id}`
           );
         return;
       } else if (input.category === "LIKE") {
+        await db
+          .update(Post)
+          .set({ likes: sql`${Post.likes} + 1` })
+          .where(eq(Post.id, input.postId));
         const payload = { postId: input.postId, authorId: ctx.session.user.id };
         await db.insert(LikedPost).values(payload);
         return;
@@ -90,12 +169,20 @@ export const appRouter = createTRPCRouter({
     .mutation(async ({ input, ctx }) => {
       if (input.category === "UNDISLIKE") {
         await db
+          .update(Post)
+          .set({ likes: sql`${Post.dislikes} - 1` })
+          .where(eq(Post.id, input.postId));
+        await db
           .delete(DisLikedPost)
           .where(
             sql`${DisLikedPost.postId} = ${input.postId} and  ${DisLikedPost.authorId} = ${ctx.session.user.id}`
           );
         return;
       } else if (input.category === "DISLIKE") {
+        await db
+          .update(Post)
+          .set({ likes: sql`${Post.dislikes} + 1` })
+          .where(eq(Post.id, input.postId));
         const payload = { postId: input.postId, authorId: ctx.session.user.id };
         await db.insert(DisLikedPost).values(payload);
         return;

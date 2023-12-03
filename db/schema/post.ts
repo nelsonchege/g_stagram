@@ -9,8 +9,8 @@ export const Post = pgTable("posts", {
   content: text("content"),
   location: text("location"),
   image: text("image"),
-  likes: integer("likes"),
-  dislikes: integer("dislikes"),
+  likes: integer("likes").default(0),
+  dislikes: integer("dislikes").default(0),
   createdAt: timestamp("createdAt").defaultNow(),
 });
 

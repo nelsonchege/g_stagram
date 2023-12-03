@@ -36,8 +36,8 @@ CREATE TABLE IF NOT EXISTS "posts" (
 	"content" text,
 	"location" text,
 	"image" text,
-	"likes" integer,
-	"dislikes" integer,
+	"likes" integer DEFAULT 0,
+	"dislikes" integer DEFAULT 0,
 	"createdAt" timestamp DEFAULT now()
 );
 --> statement-breakpoint
