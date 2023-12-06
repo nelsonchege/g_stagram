@@ -8,10 +8,12 @@ import { LikedPost } from "@/db/schema/LikedPosts";
 import { DisLikedPost } from "@/db/schema/DislikedPost";
 import { SavedPost } from "@/db/schema/SavedPosts";
 
-export type PostWithAuthor = FetchPost & {
-  author: FetchUsers;
-};
-
+export interface PostWithAuthor extends FetchPost {
+  author: FetchUsers | null;
+}
+// FetchPost & {
+//   author: FetchUsers;
+// };
 export const appRouter = createTRPCRouter({
   getUsers: publicProcedure.query(async () => {
     const fetchusers = await db.select().from(users);
@@ -21,7 +23,7 @@ export const appRouter = createTRPCRouter({
     .input(z.object({ category: z.string(), type: z.string() }))
     .query(async ({ input, ctx }) => {
       if (input.category == "general") {
-        const fetchPosts = await db.query.Post.findMany({
+        const fetchPosts: PostWithAuthor[] = await db.query.Post.findMany({
           with: {
             author: true,
           },
