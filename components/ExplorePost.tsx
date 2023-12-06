@@ -22,7 +22,7 @@ const ExplorePost = ({ src, bgSrc, PostDetails }: ExplorePostProps) => {
         style={{
           backgroundImage: `url(${bgSrc})`,
         }}
-        className="border border-gray-300 dark:border-secondary h-80 cursor-pointer rounded-lg shadow-md hover:shadow-xl  bg-center bg-cover"
+        className="border border-gray-300 dark:border-secondary h-[25rem] cursor-pointer rounded-lg shadow-md hover:shadow-xl  bg-center bg-cover"
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
         onClick={() => setShowModal(true)}

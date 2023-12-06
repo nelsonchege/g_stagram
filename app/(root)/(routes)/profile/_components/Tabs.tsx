@@ -4,11 +4,17 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Separator } from "@/components/ui/separator";
 import ExplorePost from "@/components/ExplorePost";
 import { trpc } from "@/app/_trpc/client";
+import { FetchPost } from "@/db/schema/post";
+import { FetchUsers } from "@/db/schema/users";
 
 enum ProfileTab {
   POST = "POST",
   LIKED = "LIKED",
   SAVED = "SAVED",
+}
+
+export interface PostWithAuthor extends FetchPost {
+  author: FetchUsers | null;
 }
 
 const Tabs = () => {
@@ -113,7 +119,7 @@ const Tabs = () => {
         ) : (
           <>
             {/* @ts-ignore */}
-            {Posts.map((post) => (
+            {Posts.map((post: PostWithAuthor) => (
               <ExplorePost
                 PostDetails={post}
                 src={

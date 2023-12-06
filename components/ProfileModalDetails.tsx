@@ -6,11 +6,12 @@ import { ScrollArea } from "./ui/scroll-area";
 import Post from "./Post";
 import { Bookmark, Heart, MessageSquare, ThumbsDown } from "lucide-react";
 import { trpc } from "@/app/_trpc/client";
+import { PostWithAuthor } from "@/app/(root)/(routes)/profile/_components/Tabs";
 
 type ProfileModalDetailsProps = {
   src: string;
   bgSrc: string;
-  PostDetails: any;
+  PostDetails: PostWithAuthor;
 };
 
 const ProfileModalDetails = ({
@@ -58,20 +59,23 @@ const ProfileModalDetails = ({
         />
       </div>
       <div className="hidden  w-full lg:w-1/2 lg:flex md:flex-col">
-        <div className="h-20 border-b-2 flex items-center pl-5 gap-5">
-          <Image
-            src={src}
-            alt={"image"}
-            width={60}
-            height={60}
-            className="rounded-full border-2"
-            style={{
-              maxWidth: "100%",
-              height: "auto",
-            }}
-          />
-          <div>name</div>
-          <div>follow</div>
+        <div className="h-20 border-b-2 flex justify-between items-center pl-5 gap-5 ">
+          <div className="flex items-center gap-3">
+            <Image
+              src={src}
+              alt={"image"}
+              width={60}
+              height={60}
+              className="rounded-full border-2 "
+              style={{
+                maxWidth: "100%",
+                height: "auto",
+              }}
+            />
+            <div>{PostDetails.author?.name}</div>
+          </div>
+
+          <div className="mr-5">follow</div>
         </div>
         <div className="flex-1">
           <div className="flex flex-grow">
@@ -95,11 +99,13 @@ const ProfileModalDetails = ({
               </div>
               <Bookmark size={28} />
             </div>
-            <div className="mt-1">0 likes</div>
+            <div className="mt-1">{PostDetails.likes} likes</div>
           </div>
           <div>
-            <span className="font-bold text-md">Briano Roloff</span>
-            <span>nice pic</span>
+            <span className="font-bold text-md mr-3">
+              {PostDetails.author?.name}
+            </span>
+            <span>{PostDetails.content}</span>
           </div>
         </div>
       </div>
@@ -112,7 +118,7 @@ const ProfileModalDetails = ({
           ImgSrc={bgSrc}
           isPopUp={false}
           createdAt={PostDetails.createdAt}
-          postId={PostDetails.postId}
+          postId={PostDetails.id}
           liked={getliked(PostDetails.id, "LIKED") || false}
           disliked={getliked(PostDetails.id, "DISLIKED") || false}
           saved={getliked(PostDetails.id, "SAVED") || false}

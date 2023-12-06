@@ -7,13 +7,8 @@ import { desc, eq, sql } from "drizzle-orm";
 import { LikedPost } from "@/db/schema/LikedPosts";
 import { DisLikedPost } from "@/db/schema/DislikedPost";
 import { SavedPost } from "@/db/schema/SavedPosts";
+import { PostWithAuthor } from "@/app/(root)/(routes)/profile/_components/Tabs";
 
-export interface PostWithAuthor extends FetchPost {
-  author: FetchUsers | null;
-}
-// FetchPost & {
-//   author: FetchUsers;
-// };
 export const appRouter = createTRPCRouter({
   getUsers: publicProcedure.query(async () => {
     const fetchusers = await db.select().from(users);
