@@ -7,6 +7,7 @@ import Post from "./Post";
 import { Bookmark, Heart, MessageSquare, ThumbsDown } from "lucide-react";
 import { trpc } from "@/app/_trpc/client";
 import { PostWithAuthor } from "@/app/(root)/(routes)/profile/_components/Tabs";
+import PostComment from "./PostComment";
 
 type ProfileModalDetailsProps = {
   src: string;
@@ -79,11 +80,23 @@ const ProfileModalDetails = ({
         </div>
         <div className="flex-1">
           <div className="flex flex-grow">
-            <ScrollArea className="h-[500px] w-full overflow-y-auto">
-              <div className="h-[500px] flex justify-center items-center">
-                <h4 className="mb-4 text-xl font-bold leading-none">
+            <ScrollArea className="h-[500px] w-full overflow-y-auto border-none">
+              <div className="h-[500px] flex justify-center ">
+                {/* TODO loop over actual comments from the database  */}
+                <div className="flex flex-col w-full border m-2">
+                  <PostComment src={src} />
+                  <PostComment src={src} />
+                  <PostComment src={src} />
+                  <PostComment src={src} />
+                  <PostComment src={src} />
+                  <PostComment src={src} />
+                  <PostComment src={src} />
+                  <PostComment src={src} />
+                </div>
+
+                {/* <h4 className="mb-4 text-xl font-bold leading-none">
                   NO Comments
-                </h4>
+                </h4> */}
               </div>
             </ScrollArea>
           </div>
