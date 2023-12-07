@@ -5,6 +5,7 @@ import { formatDistanceToNow } from "date-fns";
 import Image from "next/image";
 import React, { useEffect, useMemo, useState } from "react";
 import { trpc } from "@/app/_trpc/client";
+import CommentInput from "./CommentInput";
 
 type PostProps = {
   name: string;
@@ -161,6 +162,7 @@ const Post = ({
           <span className="font-bold text-md mr-2">{name}</span>
           <span>{comment}</span>
         </div>
+        <CommentInput postId={postId} />
       </div>
     </div>
   );

@@ -7,6 +7,7 @@ import { desc, eq, sql } from "drizzle-orm";
 import { LikedPost } from "@/db/schema/LikedPosts";
 import { DisLikedPost } from "@/db/schema/DislikedPost";
 import { SavedPost } from "@/db/schema/SavedPosts";
+import { Comment } from "@/db/schema/Comments";
 import { PostWithAuthor } from "@/app/(root)/(routes)/profile/_components/Tabs";
 
 export const appRouter = createTRPCRouter({
@@ -225,6 +226,22 @@ export const appRouter = createTRPCRouter({
       );
 
       console.log("fetching like: ", result.rows);
+      return true;
+    }),
+  saveComment: protectedProcedure
+    .input(
+      z.object({
+        postId: z.number(),
+        content: z.string(),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      const payload = {
+        postId: input.postId,
+        authorId: ctx.session.user.id,
+        content: input.content,
+      };
+      await db.insert(Comment).values(payload);
       return true;
     }),
 });

@@ -6,7 +6,7 @@ import { Post } from "./post";
 export const Comment = pgTable("comments", {
   id: serial("id").primaryKey(),
   content: text("content"),
-  authorId: integer("author_id"),
+  authorId: text("author_id"),
   postId: integer("post_id"),
   createdAt: timestamp("createdAt").defaultNow(),
   updatedAt: timestamp("updatedAt"),

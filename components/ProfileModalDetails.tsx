@@ -8,6 +8,8 @@ import { Bookmark, Heart, MessageSquare, ThumbsDown } from "lucide-react";
 import { trpc } from "@/app/_trpc/client";
 import { PostWithAuthor } from "@/app/(root)/(routes)/profile/_components/Tabs";
 import PostComment from "./PostComment";
+import { useSession } from "next-auth/react";
+import CommentInput from "./CommentInput";
 
 type ProfileModalDetailsProps = {
   src: string;
@@ -23,6 +25,7 @@ const ProfileModalDetails = ({
   const { data: initialLikes } = trpc.getLikedDislikedAndSaved.useQuery();
   const memoizedLikes = useMemo(() => initialLikes, [initialLikes]);
   const [Likes, setLikes] = useState(initialLikes);
+
   useEffect(() => {
     setLikes(memoizedLikes);
   }, [memoizedLikes]);
@@ -46,7 +49,7 @@ const ProfileModalDetails = ({
   };
 
   return (
-    <div className="w-[90%] lg:w-2/3 h-3/4 bg-background border-2 bg-opacity-100 mx-auto my-auto rounded-xl shadow-lg flex flex-col lg:flex-row gap-3">
+    <div className="w-[90%] lg:w-2/3 h-[81%] lg:h-3/4 bg-background border-2 bg-opacity-100 mx-auto my-auto rounded-xl shadow-lg flex flex-col lg:flex-row gap-3">
       <div className="hidden sm:block w-full lg:w-1/2  relative ">
         <Image
           src={bgSrc}
@@ -78,10 +81,10 @@ const ProfileModalDetails = ({
 
           <div className="mr-5">follow</div>
         </div>
-        <div className="flex-1">
+        <div className="">
           <div className="flex flex-grow">
-            <ScrollArea className="h-[500px] w-full overflow-y-auto border-none">
-              <div className="h-[500px] flex justify-center ">
+            <ScrollArea className="h-[425px] w-full overflow-y-auto border-none">
+              <div className="h-[425px] flex justify-center ">
                 {/* TODO loop over actual comments from the database  */}
                 <div className="flex flex-col w-full border m-2">
                   <PostComment src={src} />
@@ -102,9 +105,9 @@ const ProfileModalDetails = ({
           </div>
         </div>
         {/* comment section */}
-        <div className="w-full p-4">
-          <div className="w-full py-2 px-1 mb-1">
-            <div className="flex justify-between">
+        <div className="w-full p-4 border ">
+          <div className="w-full py-2 px-1 mb-1 border ">
+            <div className="flex justify-between ">
               <div className="flex gap-2">
                 <Heart size={28} />
                 <MessageSquare size={28} />
@@ -118,13 +121,14 @@ const ProfileModalDetails = ({
             <span className="font-bold text-md mr-3">
               {PostDetails.author?.name}
             </span>
-            <span>{PostDetails.content}</span>
+            <span className="text-md">{PostDetails.content}</span>
           </div>
+          <CommentInput postId={PostDetails.id} />
         </div>
       </div>
       <div className="lg:hidden flex justify-center items-center mb-5">
         <Post
-          name={"Briano Roloff"}
+          name={PostDetails.author!.name!}
           src={src}
           likes={PostDetails.likes ? PostDetails.likes : 0}
           comment={PostDetails.content!}
