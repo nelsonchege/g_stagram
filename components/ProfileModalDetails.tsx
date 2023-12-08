@@ -41,8 +41,6 @@ const ProfileModalDetails = ({
     setComments(memoizedComments);
   }, [memoizedLikes, memoizedComments]);
 
-  console.log(`comments:${initialComments}`);
-
   const getliked = (PostId: number, category: string) => {
     if (Likes == undefined) {
       return false;

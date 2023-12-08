@@ -42,9 +42,7 @@ const Post = ({
   const dislikePost = trpc.dislikePost.useMutation();
   const savePost = trpc.savePost.useMutation();
 
-  const MessagePost = async (postId: number) => {
-    console.log("write comment", postId);
-  };
+  const MessagePost = async (postId: number) => {};
   const SavePost = async (postId: number) => {
     if (!isSaved) {
       setIsSaved(!isSaved);

@@ -36,7 +36,7 @@ const HomePost = () => {
       const likes = Likes!["saved_posts"];
 
       const response = likes.some((item) => item.postId === PostId);
-      console.log("response: ", response);
+
       return response;
     }
   };

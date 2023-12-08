@@ -225,7 +225,6 @@ export const appRouter = createTRPCRouter({
         sql`select exists(${subquery}) as exists`
       );
 
-      console.log("fetching like: ", result.rows);
       return true;
     }),
   saveComment: protectedProcedure
@@ -253,11 +252,7 @@ export const appRouter = createTRPCRouter({
         },
         where: eq(Comment.postId, input.postId),
       });
-      console.log(
-        `postId: ${input.postId},fetchComments: ${JSON.stringify(
-          fetchComments
-        )}`
-      );
+
       return fetchComments;
     }),
 });
