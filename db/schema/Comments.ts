@@ -1,4 +1,4 @@
-import { relations } from "drizzle-orm";
+import { relations, InferSelectModel } from "drizzle-orm";
 import { pgTable, text, serial, integer, timestamp } from "drizzle-orm/pg-core";
 import { users } from "./users";
 import { Post } from "./post";
@@ -25,3 +25,5 @@ export const CommentRelations = relations(Comment, ({ one }) => ({
     references: [Post.id],
   }),
 }));
+
+export type FetchComment = InferSelectModel<typeof Comment>;

@@ -1,11 +1,17 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Image from "next/image";
 import { MoreHorizontal } from "lucide-react";
+import CommentInput from "./CommentInput";
+
 type PostCommentProps = {
   src: string;
+  comment: any;
 };
 
-const PostComment = ({ src }: PostCommentProps) => {
+const PostComment = ({ src, comment }: PostCommentProps) => {
+  const [addComment, setAddComment] = useState<boolean>(false);
   return (
     <div className="p-2 w-full flex gap-2">
       <div>
@@ -24,14 +30,24 @@ const PostComment = ({ src }: PostCommentProps) => {
 
       <div className="flex flex-col">
         <div className="flex gap-3">
-          <h1 className="font-semibold text-lg">comments name</h1>
-          <span className="text-lg">actual comment</span>
+          <h1 className="font-semibold text-lg">{comment.author.name}</h1>
+          <span className="text-lg">{comment.content}</span>
         </div>
-        <div className="flex items-center gap-2">
+
+        <button
+          className="flex items-center gap-2"
+          onClick={() => setAddComment(!addComment)}
+        >
           <span className="text-lg">reply</span>
           <MoreHorizontal />
-        </div>
-        <span className="text-lg">--view comments (1)</span>
+        </button>
+        <CommentInput
+          postId={3}
+          className={`${addComment ? "block" : "hidden"}`}
+          commentId={comment.id}
+        />
+        {/* TODO  to show if there is extra comments */}
+        {/* <span className="text-lg">--view comments (1)</span> */}
       </div>
     </div>
   );

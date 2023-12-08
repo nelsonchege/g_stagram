@@ -5,7 +5,7 @@ import { Post, postsRelations } from "./schema/post";
 import { users } from "./schema/users";
 import { SavedPost } from "./schema/SavedPosts";
 import { CommentRelation } from "./schema/CommentsRelation";
-import { Comment } from "./schema/Comments";
+import { Comment, CommentRelations } from "./schema/Comments";
 dotenv.config();
 
 const client = new Pool({
@@ -13,5 +13,13 @@ const client = new Pool({
 });
 
 export const db = drizzle(client, {
-  schema: { Post, users, SavedPost, CommentRelation, Comment, postsRelations },
+  schema: {
+    Post,
+    users,
+    SavedPost,
+    CommentRelation,
+    Comment,
+    postsRelations,
+    CommentRelations,
+  },
 });

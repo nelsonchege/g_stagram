@@ -8,7 +8,6 @@ import {
 } from "drizzle-orm/pg-core";
 import type { AdapterAccount } from "@auth/core/adapters";
 import { InferSelectModel, relations } from "drizzle-orm";
-import { Post } from "./post";
 import { Comment } from "./Comments";
 
 export const users = pgTable("user", {

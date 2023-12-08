@@ -8,7 +8,6 @@ import { Bookmark, Heart, MessageSquare, ThumbsDown } from "lucide-react";
 import { trpc } from "@/app/_trpc/client";
 import { PostWithAuthor } from "@/app/(root)/(routes)/profile/_components/Tabs";
 import PostComment from "./PostComment";
-import { useSession } from "next-auth/react";
 import CommentInput from "./CommentInput";
 
 type ProfileModalDetailsProps = {
@@ -23,12 +22,27 @@ const ProfileModalDetails = ({
   PostDetails,
 }: ProfileModalDetailsProps) => {
   const { data: initialLikes } = trpc.getLikedDislikedAndSaved.useQuery();
+  const { data: initialComments } = trpc.getComments.useQuery(
+    {
+      postId: PostDetails.id,
+    },
+    {
+      cacheTime: 0,
+      refetchOnMount: true,
+    }
+  );
   const memoizedLikes = useMemo(() => initialLikes, [initialLikes]);
+  const memoizedComments = useMemo(() => initialComments, [initialComments]);
+  const [Comments, setComments] = useState(initialComments);
   const [Likes, setLikes] = useState(initialLikes);
 
   useEffect(() => {
     setLikes(memoizedLikes);
-  }, [memoizedLikes]);
+    setComments(memoizedComments);
+  }, [memoizedLikes, memoizedComments]);
+
+  console.log(`comments:${initialComments}`);
+
   const getliked = (PostId: number, category: string) => {
     if (Likes == undefined) {
       return false;
@@ -86,20 +100,22 @@ const ProfileModalDetails = ({
             <ScrollArea className="h-[425px] w-full overflow-y-auto border-none">
               <div className="h-[425px] flex justify-center ">
                 {/* TODO loop over actual comments from the database  */}
-                <div className="flex flex-col w-full border m-2">
-                  <PostComment src={src} />
-                  <PostComment src={src} />
-                  <PostComment src={src} />
-                  <PostComment src={src} />
-                  <PostComment src={src} />
-                  <PostComment src={src} />
-                  <PostComment src={src} />
-                  <PostComment src={src} />
-                </div>
 
-                {/* <h4 className="mb-4 text-xl font-bold leading-none">
-                  NO Comments
-                </h4> */}
+                {Comments?.length ? (
+                  <div className="flex flex-col w-full border m-2">
+                    {Comments.map((comment) => (
+                      <PostComment
+                        src={src}
+                        key={comment.id}
+                        comment={comment}
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  <h4 className="mb-4 text-xl font-bold leading-none">
+                    NO Comments
+                  </h4>
+                )}
               </div>
             </ScrollArea>
           </div>
