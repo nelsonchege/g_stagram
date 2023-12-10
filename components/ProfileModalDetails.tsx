@@ -97,8 +97,6 @@ const ProfileModalDetails = ({
           <div className="flex flex-grow">
             <ScrollArea className="h-[425px] w-full overflow-y-auto border-none">
               <div className="h-[425px] flex justify-center ">
-                {/* TODO loop over actual comments from the database  */}
-
                 {Comments?.length ? (
                   <div className="flex flex-col w-full border m-2">
                     {Comments.map((comment) => (
@@ -106,6 +104,7 @@ const ProfileModalDetails = ({
                         src={src}
                         key={comment.id}
                         comment={comment}
+                        postId={PostDetails.id}
                       />
                     ))}
                   </div>

@@ -14,7 +14,16 @@ const CommentInput = ({ postId, className, commentId }: CommentInputProps) => {
   const SaveComment = trpc.saveComment.useMutation();
 
   const SubmitComment = () => {
-    SaveComment.mutate({ postId, content: comment! });
+    let payload = {
+      postId,
+      content: comment!,
+      commentId: undefined as number | undefined,
+    };
+    if (commentId) {
+      payload.commentId = commentId;
+    }
+    SaveComment.mutate(payload);
+    setComment("");
   };
   return (
     <div className={className}>

@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS "comments" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"content" text,
-	"author_id" integer,
+	"author_id" text,
 	"post_id" integer,
 	"createdAt" timestamp DEFAULT now(),
 	"updatedAt" timestamp,
@@ -11,9 +11,10 @@ CREATE TABLE IF NOT EXISTS "comments" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "comments_relation" (
-	"id" serial PRIMARY KEY NOT NULL,
 	"parent_id" integer,
-	"child_id" integer
+	"child_id" integer,
+	"createdAt" timestamp DEFAULT now(),
+	CONSTRAINT comments_relation_parent_id_child_id PRIMARY KEY("parent_id","child_id")
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "disliked_posts" (

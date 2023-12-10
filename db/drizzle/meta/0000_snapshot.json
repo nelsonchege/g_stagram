@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "pg",
-  "id": "5fbb0b09-5d57-4d7b-9600-76d9ab202c0c",
+  "id": "d4647cc5-2e93-414c-94fc-79555a8dabd8",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "comments": {
@@ -22,7 +22,7 @@
         },
         "author_id": {
           "name": "author_id",
-          "type": "integer",
+          "type": "text",
           "primaryKey": false,
           "notNull": false
         },
@@ -73,12 +73,6 @@
       "name": "comments_relation",
       "schema": "",
       "columns": {
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
         "parent_id": {
           "name": "parent_id",
           "type": "integer",
@@ -90,11 +84,26 @@
           "type": "integer",
           "primaryKey": false,
           "notNull": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
         }
       },
       "indexes": {},
       "foreignKeys": {},
-      "compositePrimaryKeys": {},
+      "compositePrimaryKeys": {
+        "comments_relation_parent_id_child_id": {
+          "name": "comments_relation_parent_id_child_id",
+          "columns": [
+            "parent_id",
+            "child_id"
+          ]
+        }
+      },
       "uniqueConstraints": {}
     },
     "disliked_posts": {

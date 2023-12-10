@@ -4,14 +4,20 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { MoreHorizontal } from "lucide-react";
 import CommentInput from "./CommentInput";
+import { trpc } from "@/app/_trpc/client";
 
 type PostCommentProps = {
   src: string;
   comment: any;
+  postId: number;
 };
 
-const PostComment = ({ src, comment }: PostCommentProps) => {
+const PostComment = ({ src, comment, postId }: PostCommentProps) => {
   const [addComment, setAddComment] = useState<boolean>(false);
+  const [showMoreComment, setShowMoreComment] = useState<boolean>(false);
+  const { data: initialCommentComments } = trpc.getCommentComments.useQuery({
+    commentId: comment.id,
+  });
   return (
     <div className="p-2 w-full flex gap-2">
       <div>
@@ -42,12 +48,27 @@ const PostComment = ({ src, comment }: PostCommentProps) => {
           <MoreHorizontal />
         </button>
         <CommentInput
-          postId={3}
+          postId={postId}
           className={`${addComment ? "block" : "hidden"}`}
           commentId={comment.id}
         />
-        {/* TODO  to show if there is extra comments */}
-        {/* <span className="text-lg">--view comments (1)</span> */}
+        {initialCommentComments!.length ? (
+          <>
+            <span
+              className="text-lg cursor-pointer"
+              onClick={() => setShowMoreComment(!showMoreComment)}
+            >
+              --view comments ({initialCommentComments?.length})
+            </span>
+            <div className={`${showMoreComment ? "block" : "hidden"}`}>
+              <div className="ml-5 flex flex-col ">
+                {initialCommentComments!.map((Comments) => (
+                  <span key={Comments.id + comment.id}>{Comments.content}</span>
+                ))}
+              </div>
+            </div>
+          </>
+        ) : null}
       </div>
     </div>
   );

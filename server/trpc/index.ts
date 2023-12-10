@@ -1,14 +1,15 @@
 import { z } from "zod";
 import { publicProcedure, protectedProcedure, createTRPCRouter } from "./trpc";
 import { db } from "@/db";
-import { FetchUsers, users } from "@/db/schema/users";
-import { FetchPost, Post } from "@/db/schema/post";
+import { users } from "@/db/schema/users";
+import { Post } from "@/db/schema/post";
 import { desc, eq, sql } from "drizzle-orm";
 import { LikedPost } from "@/db/schema/LikedPosts";
 import { DisLikedPost } from "@/db/schema/DislikedPost";
 import { SavedPost } from "@/db/schema/SavedPosts";
 import { Comment, FetchComment } from "@/db/schema/Comments";
 import { PostWithAuthor } from "@/app/(root)/(routes)/profile/_components/Tabs";
+import { CommentRelation } from "@/db/schema/CommentsRelation";
 
 export const appRouter = createTRPCRouter({
   getUsers: publicProcedure.query(async () => {
@@ -232,15 +233,36 @@ export const appRouter = createTRPCRouter({
       z.object({
         postId: z.number(),
         content: z.string(),
+        commentId: z.number().optional(),
       })
     )
     .mutation(async ({ input, ctx }) => {
-      const payload = {
-        postId: input.postId,
-        authorId: ctx.session.user.id,
-        content: input.content,
-      };
-      await db.insert(Comment).values(payload);
+      let payload;
+      if (input.commentId) {
+        payload = {
+          authorId: ctx.session.user.id,
+          content: input.content,
+          replytoId: input.commentId,
+        };
+      } else {
+        payload = {
+          postId: input.postId,
+          authorId: ctx.session.user.id,
+          content: input.content,
+        };
+      }
+
+      const returnedId: { ID: number }[] = await db
+        .insert(Comment)
+        .values(payload)
+        .returning({ ID: Comment.id });
+
+      if (input.commentId) {
+        await db
+          .insert(CommentRelation)
+          .values({ parentId: input.commentId, ChildId: returnedId[0].ID });
+      }
+
       return true;
     }),
   getComments: protectedProcedure
@@ -254,6 +276,19 @@ export const appRouter = createTRPCRouter({
       });
 
       return fetchComments;
+    }),
+  getCommentComments: protectedProcedure
+    .input(z.object({ commentId: z.number() }))
+    .query(async ({ input }) => {
+      const CommentComments = await db.execute(sql`
+      select * from ${Comment}
+      where id in (
+        select ${CommentRelation.ChildId}
+        from ${CommentRelation}
+        where ${CommentRelation.parentId} = ${input.commentId}
+      )`);
+      console.log(`comment Comments:${JSON.stringify(CommentComments.rows)}`);
+      return CommentComments.rows;
     }),
 });
 

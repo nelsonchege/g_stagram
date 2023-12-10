@@ -61,7 +61,7 @@ const Sidebar = ({ src }: SidebarProps) => {
           <SideBarItems
             icon={<ThemeButton />}
             text={"Change Theme"}
-            routeFunction={() => console.log("here at theme")}
+            routeFunction={() => {}}
           />
         </div>
       </div>

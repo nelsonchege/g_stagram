@@ -2,6 +2,7 @@ import { relations, InferSelectModel } from "drizzle-orm";
 import { pgTable, text, serial, integer, timestamp } from "drizzle-orm/pg-core";
 import { users } from "./users";
 import { Post } from "./post";
+import { CommentRelation } from "./CommentsRelation";
 
 export const Comment = pgTable("comments", {
   id: serial("id").primaryKey(),
@@ -15,7 +16,7 @@ export const Comment = pgTable("comments", {
   replytoId: integer("replytoId"),
 });
 
-export const CommentRelations = relations(Comment, ({ one }) => ({
+export const CommentRelations = relations(Comment, ({ one, many }) => ({
   author: one(users, {
     fields: [Comment.authorId],
     references: [users.id],
