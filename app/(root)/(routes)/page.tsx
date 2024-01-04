@@ -13,8 +13,8 @@ export default async function Home() {
         </div>
       </div>
       <div className="hidden lg:block w-[30%] h-screen p-5">
-        <h2 className="font-semibold text-xl">Suggested for you </h2>
-        <SuggestedUsers />
+        {/* <h2 className="font-semibold text-xl">Suggested for you </h2>
+        <SuggestedUsers /> */}
       </div>
     </div>
   );
