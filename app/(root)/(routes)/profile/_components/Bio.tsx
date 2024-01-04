@@ -30,9 +30,6 @@ const Bio = ({ src, username }: BioProps) => {
       <div className="flex-1 flex flex-col gap-10">
         <div className="flex justify-between lg:w-2/3">
           <h1 className="font-bold text-3xl">{username}</h1>
-          <button className="border border-purple-700 py-2 px-7 rounded-md shadow-md">
-            follow
-          </button>
         </div>
 
         <div className=" flex gap-12 w-2/3">
@@ -51,7 +48,7 @@ const Bio = ({ src, username }: BioProps) => {
         </div>
         <p className="lg:w-2/3">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe amet
-          nostrum fuga provident veniam harum debitis voluptas illo,{" "}
+          nostrum fuga provident veniam harum debitis voluptas illo,
         </p>
         <div />
       </div>

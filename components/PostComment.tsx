@@ -52,7 +52,7 @@ const PostComment = ({ src, comment, postId }: PostCommentProps) => {
           className={`${addComment ? "block" : "hidden"}`}
           commentId={comment.id}
         />
-        {initialCommentComments!.length ? (
+        {initialCommentComments ? (
           <>
             <span
               className="text-lg cursor-pointer"

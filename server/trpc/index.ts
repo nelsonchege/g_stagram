@@ -7,7 +7,7 @@ import { desc, eq, sql } from "drizzle-orm";
 import { LikedPost } from "@/db/schema/LikedPosts";
 import { DisLikedPost } from "@/db/schema/DislikedPost";
 import { SavedPost } from "@/db/schema/SavedPosts";
-import { Comment, FetchComment } from "@/db/schema/Comments";
+import { Comment } from "@/db/schema/Comments";
 import { PostWithAuthor } from "@/app/(root)/(routes)/profile/_components/Tabs";
 import { CommentRelation } from "@/db/schema/CommentsRelation";
 
@@ -290,6 +290,14 @@ export const appRouter = createTRPCRouter({
       console.log(`comment Comments:${JSON.stringify(CommentComments.rows)}`);
       return CommentComments.rows;
     }),
+  getSuggestedUsers: protectedProcedure.query(async ({ ctx }) => {
+    const fetchusers = await db
+      .select()
+      .from(users)
+      .where(sql`${users.id} <> ${ctx.session.user.id}`)
+      .limit(5);
+    return fetchusers;
+  }),
 });
 
 export type AppRouter = typeof appRouter;
