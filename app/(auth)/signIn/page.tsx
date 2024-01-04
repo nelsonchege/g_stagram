@@ -1,13 +1,21 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import React from "react";
 import { Card, CardBody, CardFooter } from "@nextui-org/react";
 import { Icons } from "@/components/icons";
+import { useRouter } from "next/navigation";
 
 const SignInPage = () => {
+  const { data: session } = useSession();
+  const router = useRouter();
+  console.log("data on the client side: ", session);
+
+  if (session) {
+    router.push("/");
+  }
   return (
     <div className="w-screen h-screen flex">
       <div className="w-full lg:w-1/2 flex justify-center items-center">
@@ -42,8 +50,9 @@ const SignInPage = () => {
           fill
           sizes="100vw"
           style={{
-            objectFit: "contain"
-          }} />
+            objectFit: "contain",
+          }}
+        />
       </div>
     </div>
   );
