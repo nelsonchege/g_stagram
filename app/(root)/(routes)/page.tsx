@@ -1,4 +1,3 @@
-import SUggestedUser from "@/components/SUggestedUser";
 import HomePost from "./_compontents/HomePost";
 import SuggestedUsers from "@/components/SuggestedUsers";
 
