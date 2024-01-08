@@ -5,6 +5,7 @@ import Image from "next/image";
 import { MoreHorizontal } from "lucide-react";
 import CommentInput from "./CommentInput";
 import { trpc } from "@/app/_trpc/client";
+import { FetchComment } from "@/db/schema/Comments";
 
 type PostCommentProps = {
   src: string;
@@ -62,8 +63,10 @@ const PostComment = ({ src, comment, postId }: PostCommentProps) => {
             </span>
             <div className={`${showMoreComment ? "block" : "hidden"}`}>
               <div className="ml-5 flex flex-col ">
-                {initialCommentComments!.map((Comments) => (
-                  <span key={Comments.id + comment.id}>{Comments.content}</span>
+                {initialCommentComments!.map((nested_comment) => (
+                  <span key={nested_comment.id + comment.id}>
+                    {nested_comment.content}
+                  </span>
                 ))}
               </div>
             </div>

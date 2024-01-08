@@ -3,10 +3,10 @@
 import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 
-type Props = {};
+type Props = { children: React.ReactNode };
 
 const PostModal = ({ children }: Props) => {
-  const portalRef = useRef(null);
+  const portalRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (!portalRef.current) {
@@ -24,7 +24,7 @@ const PostModal = ({ children }: Props) => {
     };
   }, []);
 
-  return createPortal(children, portalRef.current);
+  return createPortal(children, portalRef.current as HTMLDivElement);
 };
 
 export default PostModal;
